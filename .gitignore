@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.prod
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Django
+media/
+staticfiles/
+*.mo
+db.sqlite3
+*.log
+
+# Dumps / backups
+*.sql
+*.bak
+
+# Editors
+.vscode/
+.idea/

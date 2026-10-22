@@ -1,0 +1,62 @@
+# Podman Compose orchestration for "eportfolio" (DEVELOPMENT).
+# Usage:  podman-compose up -d   |   podman-compose down
+
+# Own project name: dev (eportfolio) and prod (eportfolio-prod) live side by side.
+name: eportfolio
+
+services:
+  # ---------- Database: PostgreSQL ----------
+  db:
+    image: postgres:16-alpine
+    container_name: eportfolio-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      # 5432 (host PostgreSQL) and 5433 (sigfrid) are taken; expose on 5434.
+      - "5434:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  # ---------- Application: Django ----------
+  web:
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: eportfolio-web
+    restart: unless-stopped
+    env_file:
+      - .env
+    # DB_HOST is set here so it points at the "db" service inside the compose network.
+    environment:
+      DB_HOST: db
+    volumes:
+      # Code mounted for hot reload during development.
+      - .:/app
+      # Persist uploaded files.
+      - media:/app/media
+    ports:
+      # Development on 8095 (8090/8091 belong to other stacks; prod uses 8096).
+      - "8095:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    # Migrate, compile translations and start the development server.
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py compilemessages &&
+             python manage.py runserver 0.0.0.0:8000"
+
+volumes:
+  dbdata:
+    # Fixed volume name so it does NOT depend on the folder/project name.
+    name: eportfolio_dbdata
+  media:
+    name: eportfolio_media

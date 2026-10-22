@@ -1,0 +1,80 @@
+# PRODUCTION orchestration for "eportfolio".
+# Usage:  podman-compose -f compose.prod.yaml --env-file .env.prod up -d --build
+#
+# Key differences from compose.yaml (development):
+#   - gunicorn instead of runserver, DEBUG=False
+#   - the code is BAKED into the image (no host bind mount)
+#   - nginx serves static/media and acts as reverse proxy
+
+# Own project name so prod does NOT clobber the development containers.
+name: eportfolio-prod
+
+services:
+  # ---------- Database: PostgreSQL ----------
+  db:
+    image: postgres:16-alpine
+    container_name: eportfolio-db-prod
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    # No published ports: only reachable inside the compose network.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  # ---------- Application: Django + gunicorn ----------
+  web:
+    build:
+      context: .
+      dockerfile: Containerfile
+    container_name: eportfolio-web-prod
+    restart: unless-stopped
+    env_file:
+      - .env.prod
+    environment:
+      DB_HOST: db
+    volumes:
+      # Volumes SHARED with nginx (the host code is not mounted).
+      - static:/app/staticfiles
+      - media:/app/media
+    # No published ports: only nginx reaches gunicorn.
+    depends_on:
+      db:
+        condition: service_healthy
+    # Migrate, compile translations, collect static files and start gunicorn (3 workers).
+    # NOTE: gunicorn stays on ONE line. If the YAML fold splits it, the shell runs
+    # "gunicorn" without its flags, it binds to 127.0.0.1 and nginx returns 502.
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py compilemessages &&
+             python manage.py collectstatic --noinput &&
+             gunicorn eportfolio.wsgi:application --bind 0.0.0.0:8000 --workers 3 --access-logfile - --error-logfile -"
+
+  # ---------- Reverse proxy: nginx ----------
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: eportfolio-nginx-prod
+    restart: unless-stopped
+    ports:
+      # Only port exposed to the host. Change 8096 to 80 if the host has it free.
+      - "8096:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - static:/vol/static:ro
+      - media:/vol/media:ro
+    depends_on:
+      - web
+
+volumes:
+  dbdata:
+    name: eportfolio_dbdata_prod
+  static:
+    name: eportfolio_static_prod
+  media:
+    name: eportfolio_media_prod

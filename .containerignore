@@ -1,0 +1,19 @@
+# Keep the image small: exclude environments and local artefacts
+.venv/
+venv/
+.git/
+.idea/
+.vscode/
+.claude/
+__pycache__/
+*.pyc
+*.log
+media/
+staticfiles/
+*.sql
+*.bak
+
+# Secrets: never bake any .env into the image. In production the variables
+# arrive through compose env_file, not from a copied file.
+.env
+.env.*
