@@ -1,0 +1,248 @@
+/* Typography */
+body {
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-kerning: normal;
+}
+
+/* Paper grain: an SVG noise tile laid over the page, purely decorative. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  color: var(--color-heading);
+}
+
+h1 { font-size: var(--step-5); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-1); }
+h4 { font-size: var(--step-0); }
+
+/* Italic serif is the "voice" of the site: used for emphasis inside headings. */
+h1 em,
+h2 em,
+.display em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: color var(--transition-base), text-decoration-color var(--transition-base);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+strong {
+  font-weight: var(--weight-bold);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  color: var(--color-heading);
+}
+
+.lead {
+  max-width: var(--measure);
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+  color: var(--color-text-muted);
+}
+
+/* Monospace marginalia: years, indexes, labels. */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-mono);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+/* "01 — Selected work": numbered section heading with a rule that runs to the edge. */
+.section-label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.section-label__number {
+  color: var(--color-accent);
+}
+
+.section-label::after {
+  content: "";
+  flex: 1;
+  align-self: center;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
+/* Hand-drawn stroke under a word (masked SVG so it follows the theme color). */
+.scribble {
+  position: relative;
+  white-space: nowrap;
+}
+
+.scribble::after {
+  content: "";
+  position: absolute;
+  inset-inline: -0.04em;
+  inset-block-end: -0.12em;
+  height: 0.28em;
+  background-color: var(--color-accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 24' preserveAspectRatio='none'%3E%3Cpath d='M3 15c40-9 86-12 132-9 38 3 70 9 110 7 20-1 37-4 52-7' fill='none' stroke='black' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 24' preserveAspectRatio='none'%3E%3Cpath d='M3 15c40-9 86-12 132-9 38 3 70 9 110 7 20-1 37-4 52-7' fill='none' stroke='black' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  transform-origin: left center;
+  animation: scribble-draw var(--duration-slow) var(--ease-out) 300ms both;
+}
+
+@keyframes scribble-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------- Long-form content rendered from Markdown ---------- */
+.prose {
+  max-width: var(--measure);
+  font-size: var(--step-0);
+}
+
+.prose > * + * {
+  margin-block-start: 1.1em;
+}
+
+.prose h2 {
+  margin-block-start: 1.8em;
+  font-size: var(--step-2);
+}
+
+.prose h3 {
+  margin-block-start: 1.5em;
+  font-size: var(--step-1);
+}
+
+.prose ul,
+.prose ol {
+  padding-inline-start: 1.25em;
+}
+
+.prose li + li {
+  margin-block-start: 0.4em;
+}
+
+.prose li::marker {
+  color: var(--color-accent);
+}
+
+.prose blockquote {
+  padding-inline-start: 1em;
+  border-inline-start: 2px solid var(--color-accent);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-style: italic;
+  color: var(--color-heading);
+}
+
+.prose pre {
+  padding: var(--space-s);
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background-color: var(--color-surface);
+}
+
+.prose :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-s);
+  background-color: var(--color-surface-2);
+}
+
+.prose img {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+}
+
+.prose hr {
+  border: 0;
+  border-block-start: 1px solid var(--color-border);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-2xs);
+  border-block-end: 1px solid var(--color-border);
+  text-align: start;
+}
+
+/* First paragraph of a case study opens with a terracotta initial. */
+.prose--dropcap > p:first-child::first-letter {
+  float: inline-start;
+  margin: 0.06em 0.1em 0 0;
+  font-family: var(--font-display);
+  font-size: 3.4em;
+  line-height: 0.85;
+  color: var(--color-accent);
+}

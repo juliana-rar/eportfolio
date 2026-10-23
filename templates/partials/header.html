@@ -1,0 +1,35 @@
+{% load i18n portfolio_tags %}
+{% with current=request.resolver_match.url_name %}
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="{% url 'portfolio:home' %}">
+      <span class="brand__mark" aria-hidden="true">{{ profile.name|initials|slice:":1" }}</span>
+      <span class="brand__name">{{ profile.name }}</span>
+      <span class="brand__role">{% translate "Web development" %}</span>
+    </a>
+
+    {# Shown by nav.js; without JS the menu is always visible. #}
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle hidden>
+      <span class="nav-toggle__bars" aria-hidden="true"></span>
+      <span class="visually-hidden">{% translate "Menu" %}</span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="{% translate 'Main' %}">
+      <ul class="site-nav__list" role="list">
+        <li><a class="site-nav__link" href="{% url 'portfolio:home' %}"{% if current == 'home' %} aria-current="page"{% endif %}>{% translate "Home" %}</a></li>
+        <li><a class="site-nav__link" href="{% url 'portfolio:project_list' %}"{% if current == 'project_list' or current == 'project_detail' %} aria-current="page"{% endif %}>{% translate "Projects" %}</a></li>
+        <li><a class="site-nav__link" href="{% url 'siteprofile:about' %}"{% if current == 'about' %} aria-current="page"{% endif %}>{% translate "About" %}</a></li>
+        <li><a class="site-nav__link" href="{% url 'contact:contact' %}"{% if current == 'contact' %} aria-current="page"{% endif %}>{% translate "Contact" %}</a></li>
+      </ul>
+      <div class="site-nav__tools">
+        {% include "partials/lang_switch.html" %}
+        <button class="icon-button theme-toggle" type="button" aria-pressed="false" data-theme-toggle hidden>
+          <span class="visually-hidden">{% translate "Dark mode" %}</span>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21 14.5A8.5 8.5 0 0 1 9.5 3a.5.5 0 0 0-.6-.6A9.5 9.5 0 1 0 21.6 15.1a.5.5 0 0 0-.6-.6Z"/></svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+{% endwith %}

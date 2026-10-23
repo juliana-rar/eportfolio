@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Contact" %} · {{ profile.name }}{% endblock %}
+
+{% block content %}
+<div class="section section--first">
+  <div class="container container--narrow stack stack--l">
+    <header class="stack">
+      <p class="section-label"><span class="section-label__number">—</span> {% translate "Contact" %}</p>
+      <h1 class="display">{% blocktranslate %}Let's <em>talk</em>.{% endblocktranslate %}</h1>
+      <p class="lead">{% translate "Have a project in mind or a question? Write to me and I will get back to you." %}</p>
+      {% if profile.email %}
+      <p>{% translate "Prefer email?" %} <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
+      {% endif %}
+    </header>
+
+    <form class="form" method="post" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      <ul class="form__errors" role="list">{% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      {% endif %}
+      {% include "partials/form_field.html" with field=form.name %}
+      {% include "partials/form_field.html" with field=form.email %}
+      {% include "partials/form_field.html" with field=form.message %}
+      {# Honeypot: moved off-screen by CSS and hidden from assistive tech. #}
+      <div class="form__hp" aria-hidden="true">
+        {% include "partials/form_field.html" with field=form.website %}
+      </div>
+      <p class="form__help">{% translate "Fields marked with * are required." %}</p>
+      <div><button class="button button--primary" type="submit">{% translate "Send message" %} <span class="button__arrow" aria-hidden="true">→</span></button></div>
+    </form>
+  </div>
+</div>
+{% endblock %}

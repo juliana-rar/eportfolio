@@ -1,0 +1,32 @@
+{% load static i18n portfolio_tags %}
+{# Expects `project` and optionally `number`. The title link is stretched over the whole card. #}
+{% with title=project|tr:"title" %}
+<article class="project-card">
+  <div class="project-card__media">
+    {% if project.cover %}
+      <img class="project-card__img" src="{{ project.cover.url }}" width="1600" height="1000" loading="lazy" decoding="async"
+           alt="{% blocktranslate %}Screenshot of {{ title }}{% endblocktranslate %}">
+    {% else %}
+      <img class="project-card__img" src="{% static 'img/placeholder-cover.svg' %}" width="1600" height="1000" loading="lazy" alt="">
+    {% endif %}
+  </div>
+  <div class="project-card__body">
+    <p class="project-card__meta">
+      {% if number %}<span class="project-card__index">{{ number|two_digits }}</span>{% endif %}
+      <span>{{ project.year }}</span>
+      <span class="status-pill status-pill--{{ project.status }}">{{ project.get_status_display }}</span>
+    </p>
+    <h3 class="project-card__title">
+      <a class="project-card__link" href="{{ project.get_absolute_url }}">{{ title }}</a>
+    </h3>
+    <p class="project-card__summary">{{ project|tr:"summary" }}</p>
+    {% with techs=project.technologies.all %}
+    {% if techs %}
+    <ul class="project-card__stack" role="list" aria-label="{% translate 'Technologies' %}">
+      {% for tech in techs %}<li>{{ tech.name }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+</article>
+{% endwith %}

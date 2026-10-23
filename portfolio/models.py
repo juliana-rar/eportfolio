@@ -51,6 +51,16 @@ class Technology(models.Model):
             self.slug = unique_slugify(self, self.name)
         super().save(*args, **kwargs)
 
+    @classmethod
+    def grouped(cls, technologies):
+        """Return [(category label, [technologies])] in Category order, skipping empty groups."""
+        buckets = {value: [] for value in cls.Category.values}
+        for tech in technologies:
+            buckets[tech.category].append(tech)
+        return [
+            (cls.Category(value).label, techs) for value, techs in buckets.items() if techs
+        ]
+
 
 class ProjectQuerySet(models.QuerySet):
     def public(self):

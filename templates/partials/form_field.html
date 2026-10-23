@@ -1,0 +1,13 @@
+{# Expects `field` (a bound form field). #}
+<div class="form__field{% if field.errors %} form__field--invalid{% endif %}">
+  <label class="form__label" for="{{ field.id_for_label }}">
+    {{ field.label }}{% if field.field.required %} <span class="form__required" aria-hidden="true">*</span>{% endif %}
+  </label>
+  {{ field }}
+  {% if field.help_text %}<p class="form__help">{{ field.help_text }}</p>{% endif %}
+  {% if field.errors %}
+  <ul class="form__errors" id="{{ field.auto_id }}_error" role="list">
+    {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</div>

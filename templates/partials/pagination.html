@@ -1,0 +1,15 @@
+{% load i18n %}
+{# Expects `page_obj`. {% querystring %} keeps other parameters such as ?tech=. #}
+{% if page_obj.has_other_pages %}
+<nav class="pagination" aria-label="{% translate 'Pagination' %}">
+  {% if page_obj.has_previous %}
+    <a class="button button--secondary" href="{% querystring page=page_obj.previous_page_number %}" rel="prev">{% translate "Previous" %}</a>
+  {% endif %}
+  <p class="pagination__status">
+    {% blocktranslate with current=page_obj.number total=page_obj.paginator.num_pages %}Page {{ current }} of {{ total }}{% endblocktranslate %}
+  </p>
+  {% if page_obj.has_next %}
+    <a class="button button--secondary" href="{% querystring page=page_obj.next_page_number %}" rel="next">{% translate "Next" %}</a>
+  {% endif %}
+</nav>
+{% endif %}

@@ -1,0 +1,91 @@
+/* Forms and flash messages */
+.form {
+  display: grid;
+  gap: var(--space-s);
+}
+
+.form__field {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.form__label {
+  font-weight: var(--weight-bold);
+  color: var(--color-heading);
+}
+
+.form__required {
+  color: var(--color-danger);
+}
+
+.form__input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.65em 0.9em;
+  /* Muted text color keeps the border above 3:1 against the surface. */
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--radius-m);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.form__input:hover {
+  border-color: var(--color-text);
+}
+
+.form__input:focus-visible {
+  border-color: var(--color-accent);
+  outline: var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.form__textarea {
+  resize: vertical;
+}
+
+.form__input[aria-invalid="true"] {
+  border-color: var(--color-danger);
+  border-width: 2px;
+}
+
+.form__help {
+  font-size: var(--step--1);
+  color: var(--color-text-muted);
+}
+
+.form__errors {
+  font-size: var(--step--1);
+  font-weight: var(--weight-medium);
+  color: var(--color-danger);
+}
+
+/* Honeypot: off-screen for people, still in the DOM for bots. */
+.form__hp {
+  position: absolute;
+  inset-inline-start: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Flash messages (Django messages framework) */
+.flash-list {
+  display: grid;
+  gap: var(--space-2xs);
+  padding-block-start: var(--space-m);
+}
+
+.flash {
+  padding: 0.8em 1em;
+  border: 1px solid var(--color-border);
+  border-inline-start-width: 4px;
+  border-radius: var(--radius-m);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.flash--success { border-inline-start-color: var(--color-success); }
+.flash--error { border-inline-start-color: var(--color-danger); }
+.flash--warning,
+.flash--info { border-inline-start-color: var(--color-highlight); }

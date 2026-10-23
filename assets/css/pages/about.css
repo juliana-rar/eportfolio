@@ -1,0 +1,89 @@
+/* About page: portrait card + long-form bio, then the skills spec sheet. */
+.about {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.about__title {
+  font-size: var(--step-6);
+  line-height: 0.98;
+}
+
+.about__aside {
+  display: grid;
+  align-content: start;
+  gap: var(--space-m);
+}
+
+.about__portrait {
+  width: clamp(9rem, 40vw, 15rem);
+  padding: 0.4rem 0.4rem 1.6rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-m);
+  transform: rotate(-2deg);
+}
+
+.about__portrait img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.about__monogram {
+  display: grid;
+  place-items: center;
+  width: clamp(7rem, 30vw, 10rem);
+  aspect-ratio: 1;
+  border: 1px solid var(--color-rule);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: var(--step-5);
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.about__bio {
+  font-size: var(--step-1);
+  line-height: var(--leading-normal);
+}
+
+@media (min-width: 56rem) {
+  .about {
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    gap: var(--space-2xl);
+  }
+
+  .about__aside {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* Skills spec sheet (reuses the toolbox look from the home page). */
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  gap: var(--space-l) var(--space-xl);
+}
+
+.skills__title {
+  padding-block-end: var(--space-2xs);
+  border-block-end: 1px solid var(--color-rule);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-heading);
+}
+
+.skills__list {
+  display: grid;
+  gap: var(--space-3xs);
+  padding-block-start: var(--space-2xs);
+}
+
+.skills__item {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+}

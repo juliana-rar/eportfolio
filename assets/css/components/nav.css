@@ -1,0 +1,233 @@
+/* =============================================================================
+   Main navigation
+   Without JS: the links wrap under the brand and are always visible.
+   With JS (.nav-enhanced on <html>, set by nav.js): below 48rem the menu
+   collapses behind the toggle button and opens as a full-width panel.
+   ============================================================================= */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-m);
+  padding-block: var(--space-2xs);
+}
+
+.site-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs) var(--space-m);
+  counter-reset: nav;
+}
+
+.site-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  padding-block: var(--space-3xs);
+  font-size: var(--step--1);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* Small index numbers before each link, echoing the numbered sections. */
+.site-nav__link::before {
+  counter-increment: nav;
+  content: "0" counter(nav);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--color-text-muted);
+  transition: color var(--transition-base);
+}
+
+.site-nav__link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--transition-base);
+}
+
+.site-nav__link:hover {
+  color: var(--color-heading);
+}
+
+.site-nav__link:hover::after,
+.site-nav__link[aria-current="page"]::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.site-nav__link[aria-current="page"],
+.site-nav__link[aria-current="page"]::before {
+  color: var(--color-accent);
+}
+
+.site-nav__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+/* ---------- Toggle button (two lines -> cross) ---------- */
+.nav-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-heading);
+}
+
+.nav-toggle[hidden] {
+  display: none;
+}
+
+.nav-toggle__bars,
+.nav-toggle__bars::before {
+  display: block;
+  width: 1.1rem;
+  height: 1.5px;
+  background-color: currentColor;
+  transition: transform var(--transition-base);
+}
+
+.nav-toggle__bars {
+  position: relative;
+  transform: translateY(-3px);
+}
+
+.nav-toggle__bars::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  transform: translateY(6px);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars { transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { transform: rotate(-90deg); }
+
+/* ---------- Collapsed mobile panel (JS only) ---------- */
+.nav-enhanced .site-nav {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline: 0;
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-m);
+  padding: var(--space-m) var(--gutter) var(--space-l);
+  border-block-end: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-l);
+}
+
+.nav-enhanced .site-nav--open {
+  display: flex;
+  animation: nav-in var(--duration-base) var(--ease-out);
+}
+
+@keyframes nav-in {
+  from { opacity: 0; transform: translateY(-0.5rem); }
+}
+
+.nav-enhanced .site-nav__list {
+  flex-direction: column;
+  gap: 0;
+}
+
+.nav-enhanced .site-nav__link {
+  display: flex;
+  padding-block: var(--space-xs);
+  border-block-end: 1px solid var(--color-border);
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: var(--weight-regular);
+}
+
+.nav-enhanced .site-nav__link::after {
+  display: none;
+}
+
+/* ---------- Desktop: inline menu, no toggle ---------- */
+@media (min-width: 48rem) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-enhanced .site-nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-l);
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    animation: none;
+  }
+
+  .nav-enhanced .site-nav__list {
+    flex-direction: row;
+    gap: var(--space-m);
+  }
+
+  .nav-enhanced .site-nav__link {
+    display: inline-flex;
+    padding-block: var(--space-3xs);
+    border: 0;
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    font-weight: var(--weight-medium);
+  }
+
+  .nav-enhanced .site-nav__link::after {
+    display: block;
+  }
+}
+
+/* ---------- Language switch: "ES / EN" in monospace ---------- */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+.lang-switch__button {
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0 var(--space-3xs);
+  border: 0;
+  background: transparent;
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-text-muted);
+  transition: color var(--transition-base);
+}
+
+.lang-switch__button + .lang-switch__button::before {
+  content: "/";
+  margin-inline-end: var(--space-3xs);
+  color: var(--color-border);
+}
+
+.lang-switch__button:hover {
+  color: var(--color-heading);
+}
+
+.lang-switch__button[aria-current="true"] {
+  color: var(--color-heading);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 0.3em;
+  cursor: default;
+}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% if active_tech %}{% blocktranslate with tech=active_tech.name %}{{ tech }} projects{% endblocktranslate %}{% else %}{% translate "Projects" %}{% endif %} · {{ profile.name }}{% endblock %}
+{% block meta_description %}{% translate "Projects with screenshots, the tech stack and links." %}{% endblock %}
+
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/pages/projects.css' %}">{% endblock %}
+
+{% block content %}
+<div class="section section--first">
+  <div class="container">
+    <header class="archive-header">
+      <p class="section-label"><span class="section-label__number">—</span> {% translate "Archive" %}</p>
+      <h1 class="archive-header__title">{% translate "Projects" %}</h1>
+      <p class="lead">{% translate "Things I have designed, built and shipped. Filter them by technology." %}</p>
+    </header>
+
+    {# filter.js swaps the contents of this element; without JS the links reload the page. #}
+    <div class="filter-region" data-filter>
+      <nav class="filter" aria-labelledby="filter-label">
+        <p id="filter-label" class="filter__label">{% translate "Filter by technology" %}</p>
+        <ul class="cluster" role="list">
+          <li><a class="badge badge--all" href="{% url 'portfolio:project_list' %}" data-filter-link{% if not active_tech %} aria-current="page"{% endif %}>{% translate "All" %}</a></li>
+          {% for tech in technologies %}
+          <li>{% if tech == active_tech %}{% include "partials/tech_badge.html" with link=True count=tech.public_count current=True %}{% else %}{% include "partials/tech_badge.html" with link=True count=tech.public_count %}{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <section class="results" aria-labelledby="results-title">
+        <h2 id="results-title" class="results__count" tabindex="-1" aria-live="polite" data-filter-status>
+          {% blocktranslate count counter=page_obj.paginator.count %}{{ counter }} project{% plural %}{{ counter }} projects{% endblocktranslate %}{% if active_tech %} · {{ active_tech.name }}{% endif %}
+        </h2>
+        {% if projects %}
+        <ul class="grid project-grid" role="list">
+          {% for project in projects %}
+          <li class="project-grid__item">{% include "partials/project_card.html" with number=page_obj.start_index|add:forloop.counter0 %}</li>
+          {% endfor %}
+        </ul>
+        {% include "partials/pagination.html" %}
+        {% else %}
+        <p class="empty-state">{% translate "No projects match this filter yet." %}</p>
+        {% endif %}
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,625 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-23 10:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: contact/admin.py:18
+msgid "Mark selected messages as read"
+msgstr "Marcar los mensajes seleccionados como leídos"
+
+#: contact/apps.py:8 templates/contact/contact.html:4
+#: templates/contact/contact.html:10 templates/partials/footer.html:24
+#: templates/partials/header.html:22
+msgid "Contact"
+msgstr "Contacto"
+
+#: contact/forms.py:10
+msgid "Leave this field empty"
+msgstr "Deja este campo vacío"
+
+#: contact/models.py:6 portfolio/models.py:30 siteprofile/models.py:11
+msgid "name"
+msgstr "nombre"
+
+#: contact/models.py:7 siteprofile/models.py:26
+msgid "email"
+msgstr "correo electrónico"
+
+#: contact/models.py:8 contact/models.py:14
+msgid "message"
+msgstr "mensaje"
+
+#: contact/models.py:9
+msgid "received"
+msgstr "recibido"
+
+#: contact/models.py:10
+msgid "read"
+msgstr "leído"
+
+#: contact/models.py:15
+msgid "messages"
+msgstr "mensajes"
+
+#: contact/views.py:15
+msgid "Thank you! Your message has been sent."
+msgstr "¡Gracias! Tu mensaje se ha enviado."
+
+#: contact/views.py:17
+msgid "Please fix the errors below."
+msgstr "Corrige los errores indicados abajo."
+
+#: eportfolio/settings.py:100 siteprofile/admin.py:15
+msgid "Spanish"
+msgstr "Español"
+
+#: eportfolio/settings.py:101 siteprofile/admin.py:16
+msgid "English"
+msgstr "Inglés"
+
+#: portfolio/admin.py:26
+msgid "preview"
+msgstr "vista previa"
+
+#: portfolio/admin.py:38 portfolio/models.py:108
+msgid "projects"
+msgstr "proyectos"
+
+#: portfolio/admin.py:56
+msgid "Content (Spanish)"
+msgstr "Contenido (español)"
+
+#: portfolio/admin.py:57
+msgid "Content (English)"
+msgstr "Contenido (inglés)"
+
+#: portfolio/admin.py:58
+msgid "Details"
+msgstr "Detalles"
+
+#: portfolio/admin.py:59
+msgid "Links"
+msgstr "Enlaces"
+
+#: portfolio/admin.py:60
+msgid "Visibility"
+msgstr "Visibilidad"
+
+#: portfolio/admin.py:63
+msgid "cover"
+msgstr "portada"
+
+#: portfolio/apps.py:8 templates/portfolio/home.html:12
+msgid "Portfolio"
+msgstr "Portafolio"
+
+#: portfolio/models.py:24
+msgid "Frontend"
+msgstr "Frontend"
+
+#: portfolio/models.py:25
+msgid "Backend"
+msgstr "Backend"
+
+#: portfolio/models.py:26
+msgid "DevOps"
+msgstr "DevOps"
+
+#: portfolio/models.py:27
+msgid "Mobile"
+msgstr "Móvil"
+
+#: portfolio/models.py:28
+msgid "Database"
+msgstr "Base de datos"
+
+#: portfolio/models.py:31 portfolio/models.py:80
+msgid "slug"
+msgstr "slug"
+
+#: portfolio/models.py:34
+msgid "icon"
+msgstr "icono"
+
+#: portfolio/models.py:39
+msgid "category"
+msgstr "categoría"
+
+#: portfolio/models.py:43
+msgid "technology"
+msgstr "tecnología"
+
+#: portfolio/models.py:44 portfolio/models.py:87
+msgid "technologies"
+msgstr "tecnologías"
+
+#: portfolio/models.py:75
+msgid "Finished"
+msgstr "Terminado"
+
+#: portfolio/models.py:76
+msgid "In progress"
+msgstr "En curso"
+
+#: portfolio/models.py:78
+msgid "title (ES)"
+msgstr "título (ES)"
+
+#: portfolio/models.py:79
+msgid "title (EN)"
+msgstr "título (EN)"
+
+#: portfolio/models.py:81
+msgid "summary (ES)"
+msgstr "resumen (ES)"
+
+#: portfolio/models.py:82
+msgid "summary (EN)"
+msgstr "resumen (EN)"
+
+#: portfolio/models.py:83
+msgid "description (ES, Markdown)"
+msgstr "descripción (ES, Markdown)"
+
+#: portfolio/models.py:84
+msgid "description (EN, Markdown)"
+msgstr "descripción (EN, Markdown)"
+
+#: portfolio/models.py:85
+msgid "cover image"
+msgstr "imagen de portada"
+
+#: portfolio/models.py:89
+msgid "role"
+msgstr "rol"
+
+#: portfolio/models.py:91
+msgid "year"
+msgstr "año"
+
+#: portfolio/models.py:94
+msgid "status"
+msgstr "estado"
+
+#: portfolio/models.py:96
+msgid "repository URL"
+msgstr "URL del repositorio"
+
+#: portfolio/models.py:97
+msgid "live URL"
+msgstr "URL en producción"
+
+#: portfolio/models.py:98
+msgid "featured"
+msgstr "destacado"
+
+#: portfolio/models.py:99
+msgid "public"
+msgstr "público"
+
+#: portfolio/models.py:100 portfolio/models.py:143
+msgid "order"
+msgstr "orden"
+
+#: portfolio/models.py:101
+msgid "created"
+msgstr "creado"
+
+#: portfolio/models.py:107 portfolio/models.py:133
+msgid "project"
+msgstr "proyecto"
+
+#: portfolio/models.py:136
+msgid "image"
+msgstr "imagen"
+
+#: portfolio/models.py:141
+msgid "caption (ES)"
+msgstr "pie (ES)"
+
+#: portfolio/models.py:142
+msgid "caption (EN)"
+msgstr "pie (EN)"
+
+#: portfolio/models.py:147
+msgid "screenshot"
+msgstr "captura"
+
+#: portfolio/models.py:148
+msgid "screenshots"
+msgstr "capturas"
+
+#: siteprofile/admin.py:17
+msgid "Links and files"
+msgstr "Enlaces y archivos"
+
+#: siteprofile/apps.py:8
+msgid "Profile"
+msgstr "Perfil"
+
+#: siteprofile/models.py:12
+msgid "headline (ES)"
+msgstr "titular (ES)"
+
+#: siteprofile/models.py:13
+msgid "headline (EN)"
+msgstr "titular (EN)"
+
+#: siteprofile/models.py:14
+msgid "bio (ES, Markdown)"
+msgstr "biografía (ES, Markdown)"
+
+#: siteprofile/models.py:15
+msgid "bio (EN, Markdown)"
+msgstr "biografía (EN, Markdown)"
+
+#: siteprofile/models.py:17
+msgid "avatar"
+msgstr "avatar"
+
+#: siteprofile/models.py:23
+msgid "CV (PDF)"
+msgstr "CV (PDF)"
+
+#: siteprofile/models.py:27
+msgid "GitHub URL"
+msgstr "URL de GitHub"
+
+#: siteprofile/models.py:28
+msgid "LinkedIn URL"
+msgstr "URL de LinkedIn"
+
+#: siteprofile/models.py:29
+msgid "location"
+msgstr "ubicación"
+
+#: siteprofile/models.py:32 siteprofile/models.py:33
+msgid "profile"
+msgstr "perfil"
+
+#: templates/404.html:4
+msgid "Page not found"
+msgstr "Página no encontrada"
+
+#: templates/404.html:11
+msgid "This page <em>got lost</em>."
+msgstr "Esta página <em>se ha perdido</em>."
+
+#: templates/404.html:12
+msgid "The page you are looking for does not exist or has been moved."
+msgstr "La página que buscas no existe o se ha movido."
+
+#: templates/404.html:14
+msgid "Back to home"
+msgstr "Volver al inicio"
+
+#: templates/404.html:15
+msgid "See projects"
+msgstr "Ver proyectos"
+
+#: templates/base.html:32
+msgid "Skip to content"
+msgstr "Saltar al contenido"
+
+#: templates/contact/contact.html:11
+msgid "Let's <em>talk</em>."
+msgstr "<em>Hablemos</em>."
+
+#: templates/contact/contact.html:12
+msgid ""
+"Have a project in mind or a question? Write to me and I will get back to you."
+msgstr ""
+"¿Tienes un proyecto en mente o una pregunta? Escríbeme y te responderé."
+
+#: templates/contact/contact.html:14
+msgid "Prefer email?"
+msgstr "¿Prefieres el correo?"
+
+#: templates/contact/contact.html:30
+msgid "Fields marked with * are required."
+msgstr "Los campos marcados con * son obligatorios."
+
+#: templates/contact/contact.html:31
+msgid "Send message"
+msgstr "Enviar mensaje"
+
+#: templates/partials/footer.html:6
+msgid "What's next"
+msgstr "¿Y ahora?"
+
+#: templates/partials/footer.html:7
+msgid "Have a project in mind? <em>Let's talk.</em>"
+msgstr "¿Tienes un proyecto en mente? <em>Hablemos.</em>"
+
+#: templates/partials/footer.html:11
+msgid "Write to me"
+msgstr "Escríbeme"
+
+#: templates/partials/footer.html:19
+msgid ""
+"Designed and coded by hand. Django, PostgreSQL and framework-free CSS, "
+"served from Podman containers."
+msgstr "Diseñado y programado a mano. Django, PostgreSQL y CSS sin frameworks, servido desde contenedores Podman."
+
+#: templates/partials/header.html:8
+msgid "Web development"
+msgstr "Desarrollo web"
+
+#: templates/partials/header.html:14
+msgid "Menu"
+msgstr "Menú"
+
+#: templates/partials/header.html:17
+msgid "Main"
+msgstr "Principal"
+
+#: templates/partials/header.html:19
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/partials/header.html:20 templates/portfolio/project_detail.html:33
+#: templates/portfolio/project_list.html:4
+#: templates/portfolio/project_list.html:14
+msgid "Projects"
+msgstr "Proyectos"
+
+#: templates/partials/header.html:21 templates/siteprofile/about.html:4
+#: templates/siteprofile/about.html:12
+msgid "About"
+msgstr "Sobre mí"
+
+#: templates/partials/header.html:27
+msgid "Dark mode"
+msgstr "Modo oscuro"
+
+#: templates/partials/pagination.html:4
+msgid "Pagination"
+msgstr "Paginación"
+
+#: templates/partials/pagination.html:6
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/partials/pagination.html:9
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "Página %(current)s de %(total)s"
+
+#: templates/partials/pagination.html:12
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/partials/project_card.html:8
+#: templates/portfolio/project_detail.html:14
+#: templates/portfolio/project_detail.html:70
+#, python-format
+msgid "Screenshot of %(title)s"
+msgstr "Captura de %(title)s"
+
+#: templates/partials/project_card.html:25
+msgid "Technologies"
+msgstr "Tecnologías"
+
+#: templates/portfolio/home.html:14
+#, python-format
+msgid "Hi, I'm <span class=\"scribble\">%(first)s</span>."
+msgstr "Hola, soy <span class=\"scribble\">%(first)s</span>."
+
+#: templates/portfolio/home.html:18
+msgid "See my work"
+msgstr "Ver mi trabajo"
+
+#: templates/portfolio/home.html:20 templates/siteprofile/about.html:40
+msgid "Download CV"
+msgstr "Descargar CV"
+
+#: templates/portfolio/home.html:22
+msgid "More about me"
+msgstr "Más sobre mí"
+
+#: templates/portfolio/home.html:26 templates/siteprofile/about.html:17
+msgid "At a glance"
+msgstr "De un vistazo"
+
+#: templates/portfolio/home.html:30 templates/siteprofile/about.html:21
+#, python-format
+msgid "Portrait of %(name)s"
+msgstr "Retrato de %(name)s"
+
+#: templates/portfolio/home.html:36
+msgid "Right now"
+msgstr "Ahora mismo"
+
+#: templates/portfolio/home.html:46 templates/siteprofile/about.html:27
+msgid "Based in"
+msgstr "Desde"
+
+#: templates/portfolio/home.html:52
+msgid "Usual tools"
+msgstr "Herramientas habituales"
+
+#: templates/portfolio/home.html:64
+msgid "Index"
+msgstr "Índice"
+
+#: templates/portfolio/home.html:66
+msgid "Selected <em>work</em>"
+msgstr "Trabajo <em>seleccionado</em>"
+
+#: templates/portfolio/home.html:67
+msgid "All projects"
+msgstr "Todos los proyectos"
+
+#: templates/portfolio/home.html:77
+msgid "No featured projects yet."
+msgstr "Todavía no hay proyectos destacados."
+
+#: templates/portfolio/home.html:86 templates/siteprofile/about.html:51
+msgid "Toolbox"
+msgstr "Caja de herramientas"
+
+#: templates/portfolio/home.html:87
+msgid "What I <em>build with</em>"
+msgstr "Con qué <em>construyo</em>"
+
+#: templates/portfolio/home.html:99 templates/portfolio/project_list.html:32
+#, python-format
+msgid "%(counter)s project"
+msgid_plural "%(counter)s projects"
+msgstr[0] "%(counter)s proyecto"
+msgstr[1] "%(counter)s proyectos"
+msgstr[2] "%(counter)s proyectos"
+
+#: templates/portfolio/project_detail.html:35
+#, python-format
+msgid "Project %(n)s of %(total)s"
+msgstr "Proyecto %(n)s de %(total)s"
+
+#: templates/portfolio/project_detail.html:41
+msgid "Visit the live site"
+msgstr "Ver la web"
+
+#: templates/portfolio/project_detail.html:42
+msgid "View the code"
+msgstr "Ver el código"
+
+#: templates/portfolio/project_detail.html:49
+msgid "Project details"
+msgstr "Detalles del proyecto"
+
+#: templates/portfolio/project_detail.html:50
+msgid "Role"
+msgstr "Rol"
+
+#: templates/portfolio/project_detail.html:51
+msgid "Year"
+msgstr "Año"
+
+#: templates/portfolio/project_detail.html:52
+msgid "Status"
+msgstr "Estado"
+
+#: templates/portfolio/project_detail.html:56
+msgid "Built with"
+msgstr "Hecho con"
+
+#: templates/portfolio/project_detail.html:78
+msgid "The project"
+msgstr "El proyecto"
+
+#: templates/portfolio/project_detail.html:85
+msgid "Screenshots"
+msgstr "Capturas"
+
+#: templates/portfolio/project_detail.html:94
+#, python-format
+msgid "%(title)s, screenshot %(n)s"
+msgstr "%(title)s, captura %(n)s"
+
+#: templates/portfolio/project_detail.html:106
+msgid "More projects"
+msgstr "Más proyectos"
+
+#: templates/portfolio/project_detail.html:109
+msgid "Previous project"
+msgstr "Proyecto anterior"
+
+#: templates/portfolio/project_detail.html:115
+msgid "Next project"
+msgstr "Proyecto siguiente"
+
+#: templates/portfolio/project_detail.html:126
+msgid "Screenshot viewer"
+msgstr "Visor de capturas"
+
+#: templates/portfolio/project_detail.html:128
+msgid "Close"
+msgstr "Cerrar"
+
+#: templates/portfolio/project_detail.html:136
+msgid "Previous image"
+msgstr "Imagen anterior"
+
+#: templates/portfolio/project_detail.html:141
+msgid "Next image"
+msgstr "Imagen siguiente"
+
+#: templates/portfolio/project_list.html:4
+#, python-format
+msgid "%(tech)s projects"
+msgstr "Proyectos con %(tech)s"
+
+#: templates/portfolio/project_list.html:5
+msgid "Projects with screenshots, the tech stack and links."
+msgstr "Proyectos con capturas, tecnologías y enlaces."
+
+#: templates/portfolio/project_list.html:13
+msgid "Archive"
+msgstr "Archivo"
+
+#: templates/portfolio/project_list.html:15
+msgid "Things I have designed, built and shipped. Filter them by technology."
+msgstr ""
+"Cosas que he diseñado, construido y publicado. Fíltralas por tecnología."
+
+#: templates/portfolio/project_list.html:21
+msgid "Filter by technology"
+msgstr "Filtrar por tecnología"
+
+#: templates/portfolio/project_list.html:23
+msgid "All"
+msgstr "Todos"
+
+#: templates/portfolio/project_list.html:42
+msgid "No projects match this filter yet."
+msgstr "Todavía no hay proyectos con este filtro."
+
+#: templates/siteprofile/about.html:13
+#, python-format
+msgid "I'm <em>%(first)s</em>."
+msgstr "Soy <em>%(first)s</em>."
+
+#: templates/siteprofile/about.html:28
+msgid "Email"
+msgstr "Correo"
+
+#: templates/siteprofile/about.html:31
+msgid "Elsewhere"
+msgstr "En la red"
+
+#: templates/siteprofile/about.html:52
+msgid "Skills, <em>by area</em>"
+msgstr "Habilidades, <em>por área</em>"
+
+#~ msgid "Built with Django and hand-written CSS."
+#~ msgstr "Hecho con Django y CSS escrito a mano."
+
+#~ msgid "Get in touch"
+#~ msgstr "Contactar"
+
+#~ msgid "Featured projects"
+#~ msgstr "Proyectos destacados"
+
+#~ msgid "Tech stack"
+#~ msgstr "Tecnologías"
+
+#~ msgid "Description"
+#~ msgstr "Descripción"
+
+#~ msgid "Skills"
+#~ msgstr "Habilidades"

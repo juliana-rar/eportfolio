@@ -1,0 +1,120 @@
+/* =============================================================================
+   Lightbox: a native <dialog> opened with showModal().
+   The overlay is always dark, whatever the page theme.
+   ============================================================================= */
+.lightbox {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: var(--space-s);
+  border: 0;
+  background: transparent;
+  color: var(--ink-50);
+}
+
+.lightbox::backdrop {
+  background-color: var(--color-overlay);
+}
+
+/* Mobile: image on top, controls in one row below. */
+.lightbox[open] {
+  display: grid;
+  grid-template-areas:
+    "close close close"
+    "figure figure figure"
+    "prev counter next";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+html:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+.lightbox__figure {
+  grid-area: figure;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--space-2xs);
+  justify-items: center;
+  height: 100%;
+  min-height: 0;
+}
+
+.lightbox__img {
+  align-self: center;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius-m);
+  object-fit: contain;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 0.5);
+}
+
+.lightbox__caption {
+  max-width: var(--measure);
+  font-size: var(--step--1);
+  text-align: center;
+  color: var(--ink-100);
+}
+
+.lightbox__caption:empty {
+  display: none;
+}
+
+.lightbox__counter {
+  grid-area: counter;
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--ink-100);
+}
+
+.lightbox__button {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 50%;
+  background-color: rgb(0 0 0 / 0.45);
+  color: var(--ink-50);
+  transition: background-color var(--transition-base);
+}
+
+.lightbox__button:hover {
+  background-color: rgb(255 255 255 / 0.16);
+}
+
+.lightbox__button:focus-visible {
+  outline: 3px solid var(--amber-300);
+  outline-offset: 3px;
+}
+
+.lightbox__button[hidden] {
+  display: none;
+}
+
+.lightbox__button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.lightbox__close { grid-area: close; justify-self: end; }
+.lightbox__prev { grid-area: prev; }
+.lightbox__next { grid-area: next; }
+
+/* Wider screens: arrows on both sides of the image. */
+@media (min-width: 48rem) {
+  .lightbox[open] {
+    grid-template-areas:
+      "close close close"
+      "prev figure next"
+      ". counter .";
+    padding: var(--space-m);
+  }
+}

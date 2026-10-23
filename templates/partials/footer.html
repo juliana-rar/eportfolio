@@ -1,0 +1,28 @@
+{% load i18n %}
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    {% if request.resolver_match.url_name != 'contact' %}
+    <div class="site-footer__cta">
+      <p class="eyebrow">{% translate "What's next" %}</p>
+      <p class="site-footer__title display">{% blocktranslate %}Have a project in mind? <em>Let's talk.</em>{% endblocktranslate %}</p>
+      {% if profile.email %}
+        <a class="site-footer__email" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+      {% else %}
+        <a class="site-footer__email" href="{% url 'contact:contact' %}">{% translate "Write to me" %} →</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="site-footer__bottom">
+      <p>&copy; {% now "Y" %} {{ profile.name }}{% if profile.location %} — {{ profile.location }}{% endif %}</p>
+      <p class="site-footer__colophon">
+        {% translate "Designed and coded by hand. Django, PostgreSQL and framework-free CSS, served from Podman containers." %}
+      </p>
+      <ul class="site-footer__links" role="list">
+        {% if profile.github_url %}<li><a href="{{ profile.github_url }}" rel="me noopener">GitHub ↗</a></li>{% endif %}
+        {% if profile.linkedin_url %}<li><a href="{{ profile.linkedin_url }}" rel="me noopener">LinkedIn ↗</a></li>{% endif %}
+        <li><a href="{% url 'contact:contact' %}">{% translate "Contact" %}</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static i18n portfolio_tags %}
+
+{% block title %}{% translate "About" %} · {{ profile.name }}{% endblock %}
+
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/pages/about.css' %}">{% endblock %}
+
+{% block content %}
+<div class="section section--first">
+  <div class="container about">
+    <header class="stack">
+      <p class="section-label"><span class="section-label__number">—</span> {% translate "About" %}</p>
+      <h1 class="about__title display">{% with first=profile.name|first_word %}{% blocktranslate %}I'm <em>{{ first }}</em>.{% endblocktranslate %}{% endwith %}</h1>
+      {% if profile.headline %}<p class="lead">{{ profile|tr:"headline" }}</p>{% endif %}
+    </header>
+
+    <aside class="about__aside" aria-label="{% translate 'At a glance' %}">
+      {% if profile.avatar %}
+      <figure class="about__portrait">
+        <img src="{{ profile.avatar.url }}" width="{{ profile.avatar_width }}" height="{{ profile.avatar_height }}" loading="lazy"
+             alt="{% blocktranslate with name=profile.name %}Portrait of {{ name }}{% endblocktranslate %}">
+      </figure>
+      {% else %}
+      <span class="about__monogram" aria-hidden="true">{{ profile.name|initials|slice:":1" }}</span>
+      {% endif %}
+      <dl class="notes">
+        {% if profile.location %}<div class="notes__row"><dt class="notes__label">{% translate "Based in" %}</dt><dd class="notes__value">{{ profile.location }}</dd></div>{% endif %}
+        {% if profile.email %}<div class="notes__row"><dt class="notes__label">{% translate "Email" %}</dt><dd class="notes__value"><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></dd></div>{% endif %}
+        {% if profile.github_url or profile.linkedin_url %}
+        <div class="notes__row">
+          <dt class="notes__label">{% translate "Elsewhere" %}</dt>
+          <dd class="notes__value">
+            {% if profile.github_url %}<a href="{{ profile.github_url }}" rel="me noopener">GitHub ↗</a>{% endif %}
+            {% if profile.linkedin_url %}<a href="{{ profile.linkedin_url }}" rel="me noopener">LinkedIn ↗</a>{% endif %}
+          </dd>
+        </div>
+        {% endif %}
+      </dl>
+      {% if profile.cv %}
+      <p><a class="button button--primary" href="{{ profile.cv.url }}" download>{% translate "Download CV" %} <span class="visually-hidden">(PDF)</span> <span class="button__arrow" aria-hidden="true">↓</span></a></p>
+      {% endif %}
+    </aside>
+
+    <div class="prose about__bio">{{ profile|tr:"bio"|markdown }}</div>
+  </div>
+</div>
+
+{% if skills %}
+<section class="section" aria-labelledby="skills-title">
+  <div class="container stack stack--l">
+    <p class="section-label"><span class="section-label__number">01</span> {% translate "Toolbox" %}</p>
+    <h2 id="skills-title">{% blocktranslate %}Skills, <em>by area</em>{% endblocktranslate %}</h2>
+    <div class="skills">
+      {% for label, techs in skills %}
+      <section aria-labelledby="skills-{{ forloop.counter }}">
+        <h3 id="skills-{{ forloop.counter }}" class="skills__title">{{ label }}</h3>
+        <ul class="skills__list" role="list">
+          {% for tech in techs %}<li class="skills__item">{{ tech.name }}</li>{% endfor %}
+        </ul>
+      </section>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

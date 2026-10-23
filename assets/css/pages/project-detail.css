@@ -1,0 +1,193 @@
+/* =============================================================================
+   Project detail — laid out as a case study.
+   ============================================================================= */
+.case-hero {
+  padding-block: var(--space-xl) var(--space-l);
+}
+
+.case-hero__crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-s);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-text-muted);
+}
+
+.case-hero__crumbs a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.case-hero__crumbs a:hover {
+  color: var(--color-accent);
+}
+
+.case-hero__title {
+  max-width: 16ch;
+  font-size: var(--step-6);
+  line-height: 0.98;
+}
+
+.case-hero__summary {
+  max-width: 40ch;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-style: italic;
+  line-height: var(--leading-snug);
+  color: var(--color-text-muted);
+}
+
+/* Facts: a label/value table on mobile, ruled columns like a spec sheet on wider screens. */
+.case-facts {
+  display: grid;
+  margin-block: var(--space-l);
+  border-block: 1px solid var(--color-rule);
+}
+
+.case-facts__item {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-2xs);
+  padding-block: var(--space-xs);
+}
+
+.case-facts__item + .case-facts__item {
+  border-block-start: 1px solid var(--color-border);
+}
+
+@media (min-width: 48rem) {
+  .case-facts {
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+
+  .case-facts__item {
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: var(--space-3xs);
+    padding: var(--space-s) var(--space-s) var(--space-s) 0;
+  }
+
+  .case-facts__item + .case-facts__item {
+    padding-inline-start: var(--space-s);
+    border-block-start: 0;
+    border-inline-start: 1px solid var(--color-border);
+  }
+}
+
+.case-facts dt {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.case-facts dd {
+  margin: 0;
+  color: var(--color-heading);
+}
+
+.case-facts__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs);
+}
+
+.case-cover {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background-color: var(--color-surface-2);
+  box-shadow: var(--shadow-l);
+}
+
+.case-cover__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Body: narrow reading column with a numbered label on the side. */
+.case-section {
+  display: grid;
+  gap: var(--space-m);
+  padding-block: var(--space-2xl) 0;
+}
+
+@media (min-width: 64rem) {
+  .case-section {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .case-section > .section-label {
+    position: sticky;
+    inset-block-start: calc(var(--header-height) + var(--space-m));
+    align-self: start;
+    flex-direction: column;
+    gap: var(--space-3xs);
+  }
+
+  .case-section > .section-label::after {
+    display: none;
+  }
+}
+
+/* Previous / next project: two big serif links. */
+.pager {
+  display: grid;
+  margin-block-start: var(--space-2xl);
+  border-block: 1px solid var(--color-rule);
+}
+
+.pager__link {
+  display: grid;
+  gap: var(--space-2xs);
+  padding-block: var(--space-l);
+  color: var(--color-heading);
+  text-decoration: none;
+}
+
+.pager__link + .pager__link {
+  border-block-start: 1px solid var(--color-border);
+}
+
+.pager__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.pager__title {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  line-height: var(--leading-tight);
+  transition: color var(--transition-base);
+}
+
+.pager__link:hover .pager__title {
+  color: var(--color-accent);
+}
+
+@media (min-width: 48rem) {
+  .pager {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pager__link + .pager__link {
+    padding-inline-start: var(--space-l);
+    border-block-start: 0;
+    border-inline-start: 1px solid var(--color-border);
+  }
+
+  .pager__link--next {
+    grid-column: 2;
+    text-align: end;
+  }
+}

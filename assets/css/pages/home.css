@@ -1,0 +1,188 @@
+/* =============================================================================
+   Home page
+   ============================================================================= */
+
+/* ---------- Hero: a large handwritten-feeling greeting + margin notes ---------- */
+.hero {
+  padding-block: var(--space-2xl) var(--space-xl);
+}
+
+.hero__grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.hero__intro {
+  display: grid;
+  align-content: start;
+  gap: var(--space-m);
+}
+
+.hero__title {
+  font-size: var(--step-6);
+  line-height: 0.98;
+}
+
+.hero__headline {
+  max-width: 30ch;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-style: italic;
+  line-height: var(--leading-snug);
+  color: var(--color-text-muted);
+}
+
+.hero__actions {
+  --cluster-space: var(--space-s) var(--space-m);
+  padding-block-start: var(--space-2xs);
+}
+
+/* Margin notes: label / value pairs in monospace, ruled like a form. */
+.hero__notes {
+  display: grid;
+  align-content: start;
+  gap: var(--space-m);
+}
+
+.notes {
+  display: grid;
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.notes__row {
+  display: grid;
+  gap: var(--space-3xs);
+  padding-block: var(--space-xs);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.notes__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.notes__value {
+  margin: 0;
+  color: var(--color-heading);
+}
+
+.notes__list {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.notes__list a {
+  color: var(--color-heading);
+  text-decoration-color: var(--color-accent);
+}
+
+.notes__list a:hover {
+  color: var(--color-accent);
+}
+
+/* Portrait pinned to the page, slightly askew. */
+.hero__portrait {
+  justify-self: start;
+  width: clamp(8rem, 30vw, 12rem);
+  padding: 0.4rem 0.4rem 1.6rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-m);
+  transform: rotate(2.5deg);
+}
+
+.hero__portrait img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: grayscale(0.25) contrast(1.05);
+}
+
+@media (min-width: 60rem) {
+  .hero {
+    padding-block: var(--space-3xl) var(--space-2xl);
+  }
+
+  .hero__grid {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    gap: var(--space-2xl);
+    align-items: end;
+  }
+}
+
+/* ---------- Section heading row ---------- */
+.home-section {
+  padding-block: var(--space-2xl);
+}
+
+.home-section__header {
+  display: grid;
+  gap: var(--space-s);
+  margin-block-end: var(--space-l);
+}
+
+.home-section__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2xs) var(--space-m);
+}
+
+/* ---------- Toolbox: a spec sheet with dotted leaders ---------- */
+.toolbox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  gap: var(--space-l) var(--space-xl);
+}
+
+.toolbox__group {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2xs);
+}
+
+.toolbox__title {
+  padding-block-end: var(--space-2xs);
+  border-block-end: 1px solid var(--color-rule);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-heading);
+}
+
+.toolbox__link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  padding-block: 0.3em;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.toolbox__name {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+}
+
+.toolbox__leader {
+  flex: 1;
+  border-block-end: 1px dotted var(--color-text-muted);
+  transform: translateY(-0.3em);
+}
+
+.toolbox__count {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-text-muted);
+}
+
+.toolbox__link:hover .toolbox__name,
+.toolbox__link:hover .toolbox__count {
+  color: var(--color-accent);
+}

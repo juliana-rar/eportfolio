@@ -1,0 +1,83 @@
+/* Site footer: a large invitation to write, then the colophon. */
+.site-footer {
+  margin-block-start: var(--space-2xl);
+  padding-block: var(--space-2xl) var(--space-l);
+  border-block-start: 1px solid var(--color-rule);
+  color: var(--color-text-muted);
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.site-footer__cta {
+  display: grid;
+  gap: var(--space-s);
+}
+
+.site-footer__title {
+  max-width: 18ch;
+  font-size: var(--step-5);
+}
+
+.site-footer__email {
+  justify-self: start;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-style: italic;
+  color: var(--color-accent);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition: background-size var(--transition-base), color var(--transition-base);
+}
+
+.site-footer__email:hover {
+  background-size: 0 1px;
+  background-position: right bottom;
+}
+
+.site-footer__bottom {
+  display: grid;
+  gap: var(--space-s);
+  padding-block-start: var(--space-m);
+  border-block-start: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-mono);
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-m);
+}
+
+.site-footer a:not(.site-footer__email) {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-footer a:not(.site-footer__email):hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.site-footer__colophon {
+  max-width: 62ch;
+}
+
+@media (min-width: 48rem) {
+  .site-footer__bottom {
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+  }
+
+  .site-footer__colophon {
+    justify-self: center;
+    text-align: center;
+  }
+}

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static i18n portfolio_tags %}
+
+{% block title %}{{ project|tr:"title" }} · {{ profile.name }}{% endblock %}
+{% block meta_description %}{{ project|tr:"summary" }}{% endblock %}
+
+{% block meta %}
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ project|tr:'title' }}">
+<meta property="og:description" content="{{ project|tr:'summary' }}">
+<meta property="og:url" content="{% absolute_uri %}">
+{% if project.cover %}
+<meta property="og:image" content="{% absolute_uri project.cover.url %}">
+<meta property="og:image:alt" content="{% blocktranslate with title=project|tr:'title' %}Screenshot of {{ title }}{% endblocktranslate %}">
+{% else %}
+<meta property="og:image" content="{% absolute_uri og_default %}">
+{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/components/gallery.css' %}">
+<link rel="stylesheet" href="{% static 'css/components/lightbox.css' %}">
+<link rel="stylesheet" href="{% static 'css/pages/project-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+{% with title=project|tr:"title" %}
+<article class="case">
+  <header class="case-hero">
+    <div class="container stack stack--l">
+      <p class="case-hero__crumbs">
+        <a href="{% url 'portfolio:project_list' %}">← {% translate "Projects" %}</a>
+        <span aria-hidden="true">/</span>
+        <span>{% blocktranslate with n=project_number|two_digits total=project_total|two_digits %}Project {{ n }} of {{ total }}{% endblocktranslate %}</span>
+      </p>
+      <h1 class="case-hero__title display">{{ title }}</h1>
+      <p class="case-hero__summary">{{ project|tr:"summary" }}</p>
+      {% if project.repo_url or project.live_url %}
+      <div class="cluster">
+        {% if project.live_url %}<a class="button button--primary" href="{{ project.live_url }}" rel="noopener">{% translate "Visit the live site" %} <span class="button__arrow" aria-hidden="true">↗</span></a>{% endif %}
+        {% if project.repo_url %}<a class="button button--secondary" href="{{ project.repo_url }}" rel="noopener">{% translate "View the code" %} <span class="button__arrow" aria-hidden="true">↗</span></a>{% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="container">
+    <dl class="case-facts" aria-label="{% translate 'Project details' %}">
+      {% if project.role %}<div class="case-facts__item"><dt>{% translate "Role" %}</dt><dd>{{ project.role }}</dd></div>{% endif %}
+      <div class="case-facts__item"><dt>{% translate "Year" %}</dt><dd>{{ project.year }}</dd></div>
+      <div class="case-facts__item"><dt>{% translate "Status" %}</dt><dd><span class="status-pill status-pill--{{ project.status }}">{{ project.get_status_display }}</span></dd></div>
+      {% with techs=project.technologies.all %}
+      {% if techs %}
+      <div class="case-facts__item">
+        <dt>{% translate "Built with" %}</dt>
+        <dd>
+          <ul class="case-facts__stack" role="list">
+            {% for tech in techs %}<li>{% include "partials/tech_badge.html" with link=True %}</li>{% endfor %}
+          </ul>
+        </dd>
+      </div>
+      {% endif %}
+      {% endwith %}
+    </dl>
+
+    <figure class="case-cover">
+      {% if project.cover %}
+      <img class="case-cover__img" src="{{ project.cover.url }}" width="1600" height="900" fetchpriority="high" decoding="async"
+           alt="{% blocktranslate %}Screenshot of {{ title }}{% endblocktranslate %}">
+      {% else %}
+      <img class="case-cover__img" src="{% static 'img/placeholder-cover.svg' %}" width="1600" height="900" alt="">
+      {% endif %}
+    </figure>
+
+    {% if project.description or project.description_en %}
+    <section class="case-section" aria-labelledby="about-project">
+      <h2 class="section-label" id="about-project"><span class="section-label__number">01</span> {% translate "The project" %}</h2>
+      <div class="prose prose--dropcap">{{ project|tr:"description"|markdown }}</div>
+    </section>
+    {% endif %}
+
+    {% if images %}
+    <section class="case-section" aria-labelledby="gallery-title">
+      <h2 class="section-label" id="gallery-title"><span class="section-label__number">{% if project.description or project.description_en %}02{% else %}01{% endif %}</span> {% translate "Screenshots" %}</h2>
+      <ul class="gallery" role="list">
+        {% for image in images %}
+        {% with caption=image|tr:"caption" %}
+        <li>
+          <figure class="gallery__figure">
+            <a class="gallery__link" href="{{ image.image.url }}" data-lightbox data-caption="{{ caption }}">
+              <img class="gallery__img" src="{{ image.image.url }}" width="{{ image.width|default:1600 }}" height="{{ image.height|default:1000 }}"
+                   loading="lazy" decoding="async"
+                   alt="{% if caption %}{{ caption }}{% else %}{% blocktranslate with n=forloop.counter %}{{ title }}, screenshot {{ n }}{% endblocktranslate %}{% endif %}">
+            </a>
+            {% if caption %}<figcaption class="gallery__caption"><span class="mono">{{ forloop.counter|two_digits }}</span> {{ caption }}</figcaption>{% endif %}
+          </figure>
+        </li>
+        {% endwith %}
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    {% if prev_project or next_project %}
+    <nav class="pager" aria-label="{% translate 'More projects' %}">
+      {% if prev_project %}
+      <a class="pager__link pager__link--prev" href="{{ prev_project.get_absolute_url }}" rel="prev">
+        <span class="pager__label">← {% translate "Previous project" %}</span>
+        <span class="pager__title">{{ prev_project|tr:"title" }}</span>
+      </a>
+      {% endif %}
+      {% if next_project %}
+      <a class="pager__link pager__link--next" href="{{ next_project.get_absolute_url }}" rel="next">
+        <span class="pager__label">{% translate "Next project" %} →</span>
+        <span class="pager__title">{{ next_project|tr:"title" }}</span>
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </div>
+</article>
+
+{% if images %}
+{# Native <dialog>: inert until lightbox.js opens it. Without JS the links open the image. #}
+<dialog class="lightbox" aria-label="{% translate 'Screenshot viewer' %}" data-lightbox-dialog>
+  <button class="lightbox__button lightbox__close" type="button" data-lightbox-close>
+    <span class="visually-hidden">{% translate "Close" %}</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <figure class="lightbox__figure">
+    <img class="lightbox__img" alt="">
+    <figcaption class="lightbox__caption"></figcaption>
+  </figure>
+  <button class="lightbox__button lightbox__prev" type="button" data-lightbox-prev>
+    <span class="visually-hidden">{% translate "Previous image" %}</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <p class="lightbox__counter" aria-live="polite" data-lightbox-counter></p>
+  <button class="lightbox__button lightbox__next" type="button" data-lightbox-next>
+    <span class="visually-hidden">{% translate "Next image" %}</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</dialog>
+{% endif %}
+{% endwith %}
+{% endblock %}

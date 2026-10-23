@@ -1,0 +1,109 @@
+/* Buttons: ink blocks and underlined text links, like a printed page. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 2.875rem;
+  padding: 0.65em 1.35em;
+  border: 1px solid transparent;
+  border-radius: var(--radius-m);
+  font-size: var(--step--1);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base);
+}
+
+/* Arrow that nudges forward on hover. */
+.button__arrow {
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+
+.button:hover .button__arrow {
+  transform: translateX(0.25em);
+}
+
+.button--primary {
+  background-color: var(--color-ink-button);
+  color: var(--color-ink-button-text);
+}
+
+.button--primary:hover {
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.button--secondary {
+  border-color: var(--color-rule);
+  background-color: transparent;
+  color: var(--color-heading);
+}
+
+.button--secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Text-only action with an underline that slides in. */
+.button--ghost {
+  min-height: auto;
+  padding-inline: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--color-heading);
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-position: left bottom 0.4em;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+}
+
+.button--ghost:hover {
+  color: var(--color-accent);
+}
+
+/* Round icon-only button (theme toggle) */
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-heading);
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.icon-button[hidden] {
+  display: none;
+}
+
+.icon-button:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.icon-button svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Theme toggle: moon in light mode, sun in dark mode. */
+.theme-toggle__icon--sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--sun { display: block; }
+:root[data-theme="dark"] .theme-toggle__icon--moon { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle__icon--sun { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle__icon--moon { display: none; }
+}

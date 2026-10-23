@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <rect width="1600" height="1000" fill="#eee9df"/>
+  <g stroke="#dcd4c6" stroke-width="2">
+    <path d="M0 200h1600M0 400h1600M0 600h1600M0 800h1600"/>
+    <path d="M320 0v1000M640 0v1000M960 0v1000M1280 0v1000"/>
+  </g>
+  <g fill="none" stroke="#a8411a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.55">
+    <rect x="560" y="340" width="480" height="320" rx="8"/>
+    <path d="M560 400h480"/>
+    <path d="M740 500l-50 40 50 40M860 500l50 40-50 40"/>
+  </g>
+</svg>

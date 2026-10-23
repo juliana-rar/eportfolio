@@ -1,0 +1,81 @@
+/* Site header */
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  border-block-end: 1px solid var(--color-border);
+  background-color: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: blur(12px) saturate(1.2);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs) var(--space-s);
+  min-height: var(--header-height);
+}
+
+/* Brand: monogram seal + name, like a signature stamp. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-heading);
+  text-decoration: none;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1;
+  transition: background-color var(--transition-base), color var(--transition-base), transform var(--duration-slow) var(--ease-out);
+}
+
+.brand__name {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  letter-spacing: -0.01em;
+}
+
+.brand__role {
+  display: none;
+}
+
+.brand:hover {
+  color: var(--color-heading);
+}
+
+.brand:hover .brand__mark {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  transform: rotate(-12deg);
+}
+
+@media (min-width: 48rem) {
+  .site-header__inner {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (min-width: 64rem) {
+  .brand__role {
+    display: inline;
+    padding-inline-start: var(--space-2xs);
+    border-inline-start: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+}

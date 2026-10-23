@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Page not found" %} · {{ profile.name }}{% endblock %}
+{% block meta %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<div class="section section--first">
+  <div class="container container--narrow stack error-page">
+    <p class="error-page__code" aria-hidden="true">404</p>
+    <h1 class="display">{% blocktranslate %}This page <em>got lost</em>.{% endblocktranslate %}</h1>
+    <p class="lead">{% translate "The page you are looking for does not exist or has been moved." %}</p>
+    <div class="cluster">
+      <a class="button button--primary" href="{% url 'portfolio:home' %}">{% translate "Back to home" %}</a>
+      <a class="button button--secondary" href="{% url 'portfolio:project_list' %}">{% translate "See projects" %}</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

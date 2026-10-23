@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static i18n portfolio_tags %}
+
+{% block title %}{{ profile.name }} · {{ profile|tr:"headline" }}{% endblock %}
+
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/pages/home.css' %}">{% endblock %}
+
+{% block content %}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__intro">
+      <p class="eyebrow">{% translate "Portfolio" %} — {% now "Y" %}</p>
+      <h1 id="hero-title" class="hero__title display">
+        {% with first=profile.name|first_word %}{% blocktranslate %}Hi, I'm <span class="scribble">{{ first }}</span>.{% endblocktranslate %}{% endwith %}
+      </h1>
+      {% if profile.headline %}<p class="hero__headline">{{ profile|tr:"headline" }}</p>{% endif %}
+      <div class="cluster hero__actions">
+        <a class="button button--primary" href="{% url 'portfolio:project_list' %}">{% translate "See my work" %} <span class="button__arrow" aria-hidden="true">→</span></a>
+        {% if profile.cv %}
+        <a class="button button--secondary" href="{{ profile.cv.url }}" download>{% translate "Download CV" %} <span class="visually-hidden">(PDF)</span></a>
+        {% endif %}
+        <a class="button button--ghost" href="{% url 'siteprofile:about' %}">{% translate "More about me" %}</a>
+      </div>
+    </div>
+
+    <aside class="hero__notes" aria-label="{% translate 'At a glance' %}">
+      {% if profile.avatar %}
+      <figure class="hero__portrait">
+        <img src="{{ profile.avatar.url }}" width="{{ profile.avatar_width }}" height="{{ profile.avatar_height }}" fetchpriority="high"
+             alt="{% blocktranslate with name=profile.name %}Portrait of {{ name }}{% endblocktranslate %}">
+      </figure>
+      {% endif %}
+      <dl class="notes">
+        {% if now_projects %}
+        <div class="notes__row">
+          <dt class="notes__label">{% translate "Right now" %}</dt>
+          <dd class="notes__value">
+            <ul class="notes__list" role="list">
+              {% for project in now_projects %}<li><a href="{{ project.get_absolute_url }}">{{ project|tr:"title" }}</a></li>{% endfor %}
+            </ul>
+          </dd>
+        </div>
+        {% endif %}
+        {% if profile.location %}
+        <div class="notes__row">
+          <dt class="notes__label">{% translate "Based in" %}</dt>
+          <dd class="notes__value">{{ profile.location }}</dd>
+        </div>
+        {% endif %}
+        {% if top_technologies %}
+        <div class="notes__row">
+          <dt class="notes__label">{% translate "Usual tools" %}</dt>
+          <dd class="notes__value">{% for tech in top_technologies %}{{ tech.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</dd>
+        </div>
+        {% endif %}
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="home-section" aria-labelledby="work-title">
+  <div class="container">
+    <header class="home-section__header">
+      <p class="section-label"><span class="section-label__number">01</span> {% translate "Index" %}</p>
+      <div class="home-section__title-row">
+        <h2 id="work-title">{% blocktranslate %}Selected <em>work</em>{% endblocktranslate %}</h2>
+        <a class="button button--ghost" href="{% url 'portfolio:project_list' %}">{% translate "All projects" %} <span class="button__arrow" aria-hidden="true">→</span></a>
+      </div>
+    </header>
+    {% if featured %}
+    <div class="project-index">
+      {% for project in featured %}
+        {% include "partials/project_row.html" with number=forloop.counter %}
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">{% translate "No featured projects yet." %}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% if stack %}
+<section class="home-section" aria-labelledby="stack-title">
+  <div class="container">
+    <header class="home-section__header">
+      <p class="section-label"><span class="section-label__number">02</span> {% translate "Toolbox" %}</p>
+      <h2 id="stack-title">{% blocktranslate %}What I <em>build with</em>{% endblocktranslate %}</h2>
+    </header>
+    <div class="toolbox">
+      {% for label, techs in stack %}
+      <section class="toolbox__group" aria-labelledby="stack-{{ forloop.counter }}">
+        <h3 id="stack-{{ forloop.counter }}" class="toolbox__title">{{ label }}</h3>
+        <ul role="list">
+          {% for tech in techs %}
+          <li>
+            <a class="toolbox__link" href="{% url 'portfolio:project_list' %}?tech={{ tech.slug }}">
+              <span class="toolbox__name">{{ tech.name }}</span>
+              <span class="toolbox__leader" aria-hidden="true"></span>
+              <span class="toolbox__count">{% blocktranslate count counter=tech.public_count %}{{ counter }} project{% plural %}{{ counter }} projects{% endblocktranslate %}</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

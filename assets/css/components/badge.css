@@ -1,0 +1,107 @@
+/* Tech tags: monospace labels, like annotations in a margin. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.3em 0.65em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  background-color: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-mono);
+  line-height: 1.4;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base);
+}
+
+/* Category mark (decorative; the category is also named by a heading). */
+.badge::before {
+  content: "";
+  flex: none;
+  width: 0.45em;
+  height: 0.45em;
+  background-color: var(--badge-dot, var(--color-text-muted));
+  transform: rotate(45deg);
+}
+
+.badge:has(.badge__icon)::before,
+.badge--all::before {
+  display: none;
+}
+
+.badge--frontend { --badge-dot: var(--terracotta-300); }
+.badge--backend { --badge-dot: var(--color-accent); }
+.badge--devops { --badge-dot: var(--color-text-muted); }
+.badge--mobile { --badge-dot: var(--olive-300); }
+.badge--db { --badge-dot: var(--color-highlight); }
+
+a.badge:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+a.badge[aria-current="page"] {
+  border-color: var(--color-ink-button);
+  background-color: var(--color-ink-button);
+  color: var(--color-ink-button-text);
+}
+
+a.badge[aria-current="page"]::before {
+  background-color: currentColor;
+}
+
+.badge__icon {
+  width: 1em;
+  height: 1em;
+}
+
+.badge__count {
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+  opacity: 0.85;
+}
+
+/* Project status: a small dot plus the word. */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+}
+
+.status-pill::before {
+  content: "";
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.status-pill--finished {
+  color: var(--color-highlight);
+}
+
+.status-pill--in_progress {
+  color: var(--color-accent);
+}
+
+/* In-progress work "breathes" to read as live. */
+.status-pill--in_progress::before {
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-pill--in_progress::before {
+    animation: none;
+  }
+}

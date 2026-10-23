@@ -1,0 +1,27 @@
+{% load static i18n portfolio_tags %}
+{# One row of the home page index. Expects `project` and `number`. #}
+{% with title=project|tr:"title" %}
+<article class="project-row">
+  <span class="project-row__number" aria-hidden="true">{{ number|two_digits }}</span>
+  <div class="project-row__heading">
+    <h3 class="project-row__title">
+      <a class="project-row__link" href="{{ project.get_absolute_url }}">{{ title }} <span class="project-row__arrow" aria-hidden="true">→</span></a>
+    </h3>
+  </div>
+  <div class="project-row__details">
+    <p class="project-row__summary">{{ project|tr:"summary" }}</p>
+    <p class="project-row__meta">
+      <span>{{ project.year }}</span>
+      <span class="status-pill status-pill--{{ project.status }}">{{ project.get_status_display }}</span>
+      <span>{% for tech in project.technologies.all %}{{ tech.name }}{% if not forloop.last %} / {% endif %}{% endfor %}</span>
+    </p>
+  </div>
+  <div class="project-row__thumb">
+    {% if project.cover %}
+      <img src="{{ project.cover.url }}" width="1600" height="1000" loading="lazy" decoding="async" alt="">
+    {% else %}
+      <img src="{% static 'img/placeholder-cover.svg' %}" width="1600" height="1000" loading="lazy" alt="">
+    {% endif %}
+  </div>
+</article>
+{% endwith %}
